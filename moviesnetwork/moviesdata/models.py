@@ -1,0 +1,40 @@
+from django.db import models
+
+
+class Actor(models.Model):
+
+    name = models.CharField(blank=False, max_length=50, unique=True)
+
+    class Meta:
+        verbose_name = "Actor"
+        verbose_name_plural = "Actors"
+
+    # def __str__(self):
+        # return self.name.encode("utf-8")
+
+
+class Movie(models.Model):
+
+    name = models.CharField(blank=False, max_length=50, unique=True)
+
+    class Meta:
+        verbose_name = "Movie"
+        verbose_name_plural = "Movies"
+
+    # def __str__(self):
+        # return self.name.encode("utf-8")
+
+
+class Cast(models.Model):
+
+    character = models.CharField(blank=False, max_length=50)
+    movie = models.ForeignKey(Movie, related_name='cast')
+    actor = models.ForeignKey(Actor, related_name='casting')
+
+    class Meta:
+        verbose_name = "Cast"
+        verbose_name_plural = "Casts"
+        # unique_together = ("character", "movie", "actor")
+
+    # def __str__(self):
+        # return self.character.encode("utf-8") + " - " + self.movie.name.encode("utf-8") + "[" + self.actor.name.encode("utf-8") + "]"

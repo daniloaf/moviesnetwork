@@ -37,6 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
+    'moviesdata',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -76,8 +78,12 @@ WSGI_APPLICATION = 'moviesnetwork.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'moviesnetwork',
+        'USER': 'root',
+        'PASSWORD': 'root',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -100,3 +106,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Custom settings
+# This should be moved to applcation settings
+API_KEY = '75a15fe4963e56f73d876b2c2055f823'
