@@ -1,9 +1,13 @@
 from django.db import models
-
+from djangotoolbox.fields import ListField, EmbeddedModelField
+from django_mongodb_engine.contrib import MongoDBManager
 
 class Actor(models.Model):
 
     name = models.CharField(blank=False, max_length=50, unique=True)
+    casting = ListField(EmbeddedModelField('Cast'))
+
+    objects = MongoDBManager()
 
     class Meta:
         verbose_name = "Actor"
@@ -16,6 +20,9 @@ class Actor(models.Model):
 class Movie(models.Model):
 
     name = models.CharField(blank=False, max_length=50, unique=True)
+    cast = ListField(EmbeddedModelField('Cast'))
+
+    objects = MongoDBManager()
 
     class Meta:
         verbose_name = "Movie"
@@ -28,8 +35,8 @@ class Movie(models.Model):
 class Cast(models.Model):
 
     character = models.CharField(blank=False, max_length=50)
-    movie = models.ForeignKey(Movie, related_name='cast')
-    actor = models.ForeignKey(Actor, related_name='casting')
+
+    objects = MongoDBManager()
 
     class Meta:
         verbose_name = "Cast"

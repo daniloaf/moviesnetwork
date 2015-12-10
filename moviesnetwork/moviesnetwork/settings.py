@@ -78,12 +78,8 @@ WSGI_APPLICATION = 'moviesnetwork.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django_mongodb_engine',
         'NAME': 'moviesnetwork',
-        'USER': 'root',
-        'PASSWORD': 'root',
-        'HOST': 'localhost',
-        'PORT': '',
     }
 }
 
