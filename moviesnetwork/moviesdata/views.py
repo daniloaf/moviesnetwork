@@ -1,6 +1,4 @@
-from rest_framework import views
-from rest_framework import serializers
-from rest_framework.response import Response
+from rest_framework import views, serializers, response
 
 from services import search_actor
 from serializers import SearchActorSerializer
@@ -17,4 +15,4 @@ class SearchActorView(views.APIView):
 
         actors = search_actor(request.query_params['name'])
         serializer = SearchActorSerializer(actors, many=True)
-        return Response(serializer.data)
+        return response.Response(serializer.data)

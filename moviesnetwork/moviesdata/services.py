@@ -7,7 +7,6 @@ def search_actor(name):
     imdb_access = imdb.IMDb()
     result = imdb_access.search_person(name)
     actors = []
-    if result is not None:
-        for r in result:
-            actors.append(Actor.create(r, False))
+    if result:
+        actors = [Actor.create(r, False) for r in result]
     return actors

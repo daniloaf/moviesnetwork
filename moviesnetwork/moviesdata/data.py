@@ -3,6 +3,7 @@ class Actor(object):
     def __init__(self, actor_id, name):
         self.actor_id = actor_id
         self.name = name
+        self.movies = []
 
     @staticmethod
     def create(imdb_person, full_info):
