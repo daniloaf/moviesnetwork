@@ -12,3 +12,6 @@ class Actor(object):
             actor.movies = imdb_person.data['actor']
 
         return actor
+
+    def __eq__(self, other):
+        return isinstance(other, self.__class__) and self.actor_id == other.actor_id and self.name == other.name
