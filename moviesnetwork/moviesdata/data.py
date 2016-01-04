@@ -18,9 +18,11 @@ class Actor(object):
         """
         actor = Actor(imdb_person.getID(), imdb_person.data['name'])
         if full_info:
-            for movie in imdb_person.data.get('actor', []):
-                if movie.data['kind'] == 'movie':
-                    actor.movies.append(Movie.create(movie, False))
+            actor.movies = [
+                Movie.create(movie, False)
+                for movie in imdb_person.data.get('actor', [])
+                if movie.data['kind'] == 'movie'
+            ]
             actor.headshot = imdb_person.get('headshot')
 
         return actor
@@ -46,7 +48,7 @@ class Movie(object):
     @staticmethod
     def create(imdb_movie, full_info):
         """
-        Creates a new actor using an imdb.Person.Person instance.
+        Creates a new movie using an imdb.Person.Person instance.
 
         full_info: False for id, title and year only. True for more info.
         """

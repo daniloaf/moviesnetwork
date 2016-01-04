@@ -29,5 +29,4 @@ class ActorView(views.APIView):
         if actor:
             serializer = ActorSerializer(actor)
             return response.Response(serializer.data)
-        else:
-            return response.Response({'detail': 'Actor not found'}, status=404)
+        return response.Response({'detail': 'Actor not found'}, status=404)
