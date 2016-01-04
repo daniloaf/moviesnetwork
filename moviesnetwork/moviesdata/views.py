@@ -11,7 +11,8 @@ class SearchActorView(views.APIView):
         Searches actors in IMDB by name.
         """
         if not 'name' in request.query_params:
-            raise serializers.ValidationError({'name': 'This field is required'})
+            raise serializers.ValidationError(
+                {'name': 'This field is required'})
 
         actors = search_actor(request.query_params['name'])
         serializer = SearchActorSerializer(actors, many=True)

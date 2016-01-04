@@ -2,7 +2,8 @@ from django.test import TestCase
 from imdb.Person import Person
 from imdb.Movie import Movie as IMDbMovie
 
-from moviesdata.serializers import SearchActorSerializer, ActorSerializer, MovieSerializer
+from moviesdata.serializers import\
+    SearchActorSerializer, ActorSerializer, MovieSerializer
 from moviesdata.data import Actor, Movie
 
 
@@ -11,7 +12,9 @@ class SearchActorSerializerTests(TestCase):
     def test__serialize__actor_search_result__serialized_data(self):
         # Arrange
         actors = [Actor(1, 'Actor1'), Actor(2, 'Actor2')]
-        expected_actors = [{'actor_id': 1, 'name': 'Actor1'}, {'actor_id': 2, 'name': 'Actor2'}]
+        expected_actors = [
+            {'actor_id': 1, 'name': 'Actor1'}, {'actor_id': 2, 'name': 'Actor2'}
+        ]
         # Act
         serializer = SearchActorSerializer(actors, many=True)
         # Assert
@@ -24,8 +27,21 @@ class MovieSerializerTests(TestCase):
         # Arrange
         movie = Movie.create(IMDbMovie(
             movieID=1,
-            data={'title': 'mymovie', 'year': 2015, 'kind': 'movie', 'rating': 10, 'cover url': 'cover'}), True)
-        expected_movie = {'movie_id': 1, 'title': 'mymovie', 'year': 2015, 'rating': 10, 'cover': 'cover'}
+            data={
+                'title': 'mymovie',
+                'year': 2015,
+                'kind': 'movie',
+                'rating': 10,
+                'cover url': 'cover'
+            }),
+            True)
+        expected_movie = {
+            'movie_id': 1,
+            'title': 'mymovie',
+            'year': 2015,
+            'rating': 10,
+            'cover': 'cover'
+        }
         # Act
         serializer = MovieSerializer(movie)
         # Assert
@@ -43,7 +59,12 @@ class ActorSerializerTests(TestCase):
                     'name': 'Actor1',
                     'headshot': 'hs',
                     'actor': [
-                        IMDbMovie(movieID=1, data={'title': 'mymovie', 'year': 2015, 'kind': 'movie'})
+                        IMDbMovie(
+                            movieID=1,
+                            data={
+                                'title': 'mymovie',
+                                'year': 2015, 'kind': 'movie'
+                            })
                     ]
                 }
             ),
@@ -53,7 +74,14 @@ class ActorSerializerTests(TestCase):
             'actor_id': 1,
             'name': 'Actor1',
             'headshot': 'hs',
-            'movies': [{'movie_id': 1, 'title': 'mymovie', 'year': 2015, 'rating': None, 'cover': None}]
+            'movies': [
+                {
+                    'movie_id': 1,
+                    'title': 'mymovie',
+                    'year': 2015,
+                    'rating': None,
+                    'cover': None}
+            ]
         }
         # Act
         serializer = ActorSerializer(actor)

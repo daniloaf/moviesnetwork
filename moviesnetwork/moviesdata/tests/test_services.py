@@ -50,7 +50,13 @@ class ServicesTests(TestCase):
                 'name': 'Actor1',
                 'headshot': 'hs',
                 'actor': [
-                    IMDbMovie(movieID=1, data={'title': 'mymovie', 'year': 2015, 'kind': 'movie'})
+                    IMDbMovie(
+                        movieID=1,
+                        data={
+                            'title': 'mymovie',
+                            'year': 2015,
+                            'kind': 'movie'
+                        })
                 ]
             }
         )
@@ -64,7 +70,8 @@ class ServicesTests(TestCase):
     def test__get_actor_info__actor_not_found__None(self):
         # Arrange
         personID = 1
-        self.imdb_get_person_mock.return_value = Person(personID=personID, data={})
+        self.imdb_get_person_mock.return_value = Person(
+            personID=personID, data={})
         # Act
         actor = get_actor_info(personID)
         # Assert

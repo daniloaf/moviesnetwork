@@ -26,7 +26,9 @@ class Actor(object):
         return actor
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.actor_id == other.actor_id and self.name == other.name
+        return isinstance(other, self.__class__)\
+            and self.actor_id == other.actor_id\
+            and self.name == other.name
 
 
 class Movie(object):
@@ -49,7 +51,8 @@ class Movie(object):
         full_info: False for id, title and year only. True for more info.
         """
         movie_data = imdb_movie.data
-        movie = Movie(imdb_movie.getID(), movie_data['title'], movie_data['year'])
+        movie = Movie(
+            imdb_movie.getID(), movie_data['title'], movie_data['year'])
         if full_info:
             movie.rating = movie_data.get('rating')
             movie.cover = movie_data.get('cover url')

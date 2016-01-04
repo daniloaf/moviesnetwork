@@ -28,7 +28,8 @@ class SearchActorViewTests(APITestCase):
 
     def test__get__actors_found__status_200(self):
         # Arrange
-        self.service_mock.return_value = [Actor(1, 'Actor1'), Actor(2, 'Actor2')]
+        self.service_mock.return_value = [
+            Actor(1, 'Actor1'), Actor(2, 'Actor2')]
         request_params = {'name': 'my_name'}
         # Act
         response = self.client.get(self.url, request_params)
@@ -54,7 +55,8 @@ class SearchActorViewTests(APITestCase):
 
     def test__get__actors_found__actors_in_response(self):
         # Arrange
-        self.service_mock.return_value = [Actor(1, 'Actor1'), Actor(2, 'Actor2')]
+        self.service_mock.return_value = [
+            Actor(1, 'Actor1'), Actor(2, 'Actor2')]
         request_params = {'name': 'my_name'}
         # Act
         response = self.client.get(self.url, request_params)
@@ -87,7 +89,13 @@ class ActorViewTests(APITestCase):
                     'name': 'Actor1',
                     'headshot': 'hs',
                     'actor': [
-                        IMDbMovie(movieID=1, data={'title': 'mymovie', 'year': 2015, 'kind': 'movie'})
+                        IMDbMovie(
+                            movieID=1,
+                            data={
+                                'title': 'mymovie',
+                                'year': 2015,
+                                'kind': 'movie'
+                            })
                     ]
                 }
             ),
