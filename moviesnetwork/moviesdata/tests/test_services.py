@@ -13,8 +13,10 @@ class ServicesTests(TestCase):
     @classmethod
     def setUpClass(cls):
         super(ServicesTests, cls).setUpClass()
-        cls.imdb_search_person_patcher = mock.patch('imdb.parser.http.IMDbHTTPAccessSystem.search_person')
-        cls.imdb_get_person_patcher = mock.patch('imdb.parser.http.IMDbHTTPAccessSystem.get_person')
+        cls.imdb_search_person_patcher = mock.patch(
+            'imdb.parser.http.IMDbHTTPAccessSystem.search_person')
+        cls.imdb_get_person_patcher = mock.patch(
+            'imdb.parser.http.IMDbHTTPAccessSystem.get_person')
         cls.imdb_search_person_mock = cls.imdb_search_person_patcher.start()
         cls.imdb_get_person_mock = cls.imdb_get_person_patcher.start()
 
