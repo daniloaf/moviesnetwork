@@ -48,7 +48,7 @@ class Movie(object):
     @staticmethod
     def create(imdb_movie, full_info):
         """
-        Creates a new movie using an imdb.Person.Person instance.
+        Creates a new movie using an imdb.Movie.Movie instance.
 
         full_info: False for id, title and year only. True for more info.
         """
