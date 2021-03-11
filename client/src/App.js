@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
 
-import ArtistSearch from './components/ArtistSearch';
+import ArtistsNetwork from './components/ArtistsNetwork';
 
 function App() {
   return (
     <div className="App">
-      <ArtistSearch />
+      <ArtistsNetwork />
     </div>
   );
 }

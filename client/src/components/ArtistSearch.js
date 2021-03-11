@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
@@ -11,7 +11,7 @@ import { searchArtist } from '../http/data';
 
 const styles = theme => ({
   container: {
-    width: 600,
+    width: '100%',
     minWidth: 400,
   },
   img: {
@@ -44,11 +44,12 @@ const SearchResultsItem = withStyles({
   );
 });
 
-const ArtistSearch = (props) => {
-  const [ searchTerm, setSearchTerm ] = useState();
-  const [open, setOpen] = React.useState(false);
-  const [options, setOptions] = React.useState([]);
-  const loading = searchTerm && open && options.length === 0;
+const ArtistSearch = ({ onArtistSelect }) => {
+  const [ searchTerm, setSearchTerm ] = useState('');
+  const [ open, setOpen ] = React.useState(false);
+  const [ options, setOptions ] = React.useState([]);
+  const [ selectedArtist, setSelectedArtist ] = React.useState(null);
+  const loading = searchTerm.length > 0 && open && options.length === 0;
 
   const classes = makeStyles(styles);
 
@@ -56,31 +57,50 @@ const ArtistSearch = (props) => {
     setSearchTerm(event.target.value);
   };
 
+  const handleSelectArtist = (event, value) => {
+    if (typeof(value) !== 'string') {
+      setSelectedArtist(value);
+      setOpen(false);
+      setOptions([]);
+    }
+  };
+
   useEffect(() => {
-    (async () => {
+    if (selectedArtist) {
+      if (onArtistSelect) {
+        onArtistSelect(selectedArtist);
+      }
+      setSelectedArtist(null);
+      setOpen(false);
+      setOptions([]);
+    }
+  }, [ selectedArtist ]);
+
+  const handleSearchKeyPress = async (event) => {
+    if (event.key == 'Enter') {
       if (searchTerm && searchTerm.length > 2) {
+        setOpen(true);
         const artists = await searchArtist(searchTerm);
         setOptions(artists);
       }
-    })();
-  }, [ searchTerm ]);
+    }
+  };
 
   return (
-    <Container className={classes.container} maxWidth="sm">
+    <Container className={classes.container} >
       <Autocomplete
         id="artist-search-autocomplete"
         clearOnEscape={false}
         clearOnBlur={false}
+        openOnFocus={false}
+        freeSolo
         fullWidth
+        value={selectedArtist}
+        onChange={handleSelectArtist}
         open={open}
-        onOpen={() => {
-          setOpen(true);
-        }}
-        onClose={() => {
-          setOpen(false);
-        }}
+        onInput={() => setOpen(false)}
         getOptionSelected={(option, value) => option.name === value.name}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.name || option}
         options={options}
         loading={loading}
         renderOption={(option) => (
@@ -92,6 +112,7 @@ const ArtistSearch = (props) => {
             fullWidth
             value={searchTerm}
             onChange={handleSearchChange}
+            onKeyPress={handleSearchKeyPress}
             label="Artist name"
             variant="outlined"
             InputProps={{

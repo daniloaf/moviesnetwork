@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.menu{
+  /*This style is not written, the right-click popup will always be displayed in the lower left corner of the canvas*/
+  position: absolute;
+  background: rgba(3,3,3,0.6);
+  border-radius: 5px;
+}
+.menu ul{list-style: none}
+.menu ul li{
+  padding: 5px 10px;
+  color: #ffff;
+  border-bottom: 1px solid #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+  list-style: none;
+}
+.menu ul li:hover{
+  color: #659bc5;
+}
+.menu ul li:last-child{
+  border-bottom: none;
+  padding: 5px 10px 0 10px;
+}

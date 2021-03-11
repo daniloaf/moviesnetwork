@@ -9,9 +9,11 @@
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.1",
     "axios": "^0.21.1",
+    "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.3",
+    "vis-network": "^9.0.3",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
