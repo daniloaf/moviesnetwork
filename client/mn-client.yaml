@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mn-client
+spec:
+  ports:
+  - port: 80
+    targetPort: 4001
+  selector:
+    app: mn-client
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mn-client
+spec:
+  selector:
+    matchLabels:
+      app: mn-client
+  template:
+    metadata:
+      labels:
+        app: mn-client
+    spec:
+      containers:
+      - name: mn-client
+        image: daniloaf/mn-client:latest
+        imagePullPolicy: Always
+        env:
+          - name: NODE_ENV
+            valueFrom:
+              configMapKeyRef:
+                name: mn-config
+                key: NODE_ENV
+          - name: REACT_APP_API_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: mn-config
+                key: API_URL
+        ports:
+        - containerPort: 4001

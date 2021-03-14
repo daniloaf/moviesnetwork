@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mn-api
+spec:
+  ports:
+  - port: 80
+    targetPort: 4000
+  selector:
+    app: mn-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mn-api
+spec:
+  selector:
+    matchLabels:
+      app: mn-api
+  template:
+    metadata:
+      labels:
+        app: mn-api
+    spec:
+      containers:
+      - name: mn-api
+        image: daniloaf/mn-api:latest
+        imagePullPolicy: Always
+        env:
+          - name: NODE_ENV
+            valueFrom:
+              configMapKeyRef:
+                name: mn-config
+                key: NODE_ENV
+          - name: PORT
+            valueFrom:
+              configMapKeyRef:
+                name: mn-config
+                key: API_PORT
+          - name: IMDB_API_BASE_URL
+            valueFrom:
+              configMapKeyRef:
+                name: mn-config
+                key: IMDB_API_BASE_URL
+          - name: IMDB_API_KEY
+            valueFrom:
+              secretKeyRef:
+                name: mn-keys
+                key: IMDB_API_KEY
+        ports:
+        - containerPort: 4000

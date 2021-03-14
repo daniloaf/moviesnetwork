@@ -31,7 +31,6 @@ const ArtistsNetwork = () => {
       </Grid>
     </Grid>
   );
-
 };
 
 export default ArtistsNetwork;

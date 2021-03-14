@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mn-ingress
+spec:
+  rules:
+  - host: mn.offthread.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: mn-client
+          servicePort: 80
+  - host: mn-api.offthread.org
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: mn-api
+          servicePort: 80
